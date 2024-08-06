@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   IconButton,
   Stack,
@@ -7,6 +8,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
 } from "@mui/material";
 import { useLanguage } from "../../contexts/language.context";
 import { Delete, Edit } from "@mui/icons-material";
@@ -23,6 +25,26 @@ const StudentsTable = ({
 }) => {
   const { getLocaleString } = useLanguage();
   const { openModal } = useModalAction();
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (_: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const paginatedData = data.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   return (
     <TableContainer>
       <Table>
@@ -42,9 +64,9 @@ const StudentsTable = ({
         </TableHead>
         <TableBody>
           {isLoading ? (
-            <TableSkeleton rowCount={5} />
+            <TableSkeleton rowCount={rowsPerPage} />
           ) : (
-            data?.map((student) => (
+            paginatedData.map((student) => (
               <TableRow key={student.id}>
                 <TableCell>{student.firstName}</TableCell>
                 <TableCell>{student.lastName}</TableCell>
@@ -83,6 +105,15 @@ const StudentsTable = ({
           )}
         </TableBody>
       </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={data.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </TableContainer>
   );
 };
