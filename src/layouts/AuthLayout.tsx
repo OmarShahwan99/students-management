@@ -34,7 +34,7 @@ const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
         xs={12}
         md={6.5}
         sx={{
-          backgroundImage: { md: "url('/src/assets/auth-bg.svg')" },
+          backgroundImage: { md: "url('/auth-bg.svg')" },
           backgroundColor: { xs: "#F3F6F9", md: "transparent" },
           backgroundPosition: "center",
           backgroundSize: "cover",

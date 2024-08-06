@@ -72,3 +72,7 @@ The interface is designed with MUI components, making it responsive and intuitiv
 - CRUD Operations: Supports Create, Read, Update, and Delete operations for student data.
 
 - Error Handling: Built-in error handling and loading states to improve user experience.
+
+## Live Preview:
+
+https://students-managemet-test.netlify.app/
