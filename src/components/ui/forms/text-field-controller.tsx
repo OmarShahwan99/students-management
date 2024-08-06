@@ -14,20 +14,25 @@ const TextFieldController: React.FC<TextFieldControllerProps> = ({
   label,
   textFieldProps,
 }) => (
-  <Controller
-    name={name}
-    control={control}
-    render={({ field, formState: { errors } }) => (
-      <TextField
-        {...field}
-        {...textFieldProps}
-        label={label}
-        error={!!errors[name]}
-        helperText={errors[name]?.message?.toString()}
-        color={errors[name] ? "error" : undefined}
-      />
+  <>
+    {label && (
+      <label style={{ marginBottom: "5px", display: "block" }}>{label}</label>
     )}
-  />
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, formState: { errors } }) => (
+        <TextField
+          {...field}
+          {...textFieldProps}
+          error={!!errors[name]}
+          helperText={errors[name]?.message?.toString()}
+          color={errors[name] ? "error" : undefined}
+          size="small"
+        />
+      )}
+    />
+  </>
 );
 
 export default TextFieldController;

@@ -1,12 +1,5 @@
 import { Controller, Control } from "react-hook-form";
-import {
-  Select,
-  SelectProps,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  FormHelperText,
-} from "@mui/material";
+import { Select, SelectProps, MenuItem, FormHelperText } from "@mui/material";
 
 interface SelectControllerProps {
   name: string;
@@ -23,8 +16,10 @@ const SelectFieldController: React.FC<SelectControllerProps> = ({
   options,
   selectProps,
 }) => (
-  <FormControl fullWidth>
-    <InputLabel>{label}</InputLabel>
+  <>
+    {label && (
+      <label style={{ marginBottom: "5px", display: "block" }}>{label}</label>
+    )}
     <Controller
       name={name}
       control={control}
@@ -34,8 +29,8 @@ const SelectFieldController: React.FC<SelectControllerProps> = ({
             sx={{ width: "100%" }}
             {...field}
             {...selectProps}
-            label={label}
             error={!!errors[name]}
+            size="small"
           >
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -47,7 +42,7 @@ const SelectFieldController: React.FC<SelectControllerProps> = ({
         </>
       )}
     />
-  </FormControl>
+  </>
 );
 
 export default SelectFieldController;

@@ -9,12 +9,33 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  Box,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { useLanguage } from "../../contexts/language.context";
 import { Delete, Edit } from "@mui/icons-material";
 import { StudentModel } from "../../models/student";
 import { useModalAction } from "../ui/modal/modal.context";
 import TableSkeleton from "../ui/TableSkeleton";
+import { styled } from "@mui/material/styles";
+
+const CustomTablePagination = styled(TablePagination)(({ theme }) => ({
+  "& .MuiTablePagination-toolbar": {
+    justifyContent: "space-between",
+  },
+  "& .MuiTablePagination-actions": {
+    "& button": {
+      margin: "0 2px",
+    },
+  },
+  "& .Mui-selected": {
+    backgroundColor: `${theme.palette.primary.main} !important`,
+    color: theme.palette.primary.contrastText,
+  },
+}));
 
 const StudentsTable = ({
   data,
@@ -34,13 +55,13 @@ const StudentsTable = ({
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const paginatedData = data.slice(
+  const paginatedData = data?.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
   );
@@ -105,15 +126,39 @@ const StudentsTable = ({
           )}
         </TableBody>
       </Table>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        p={2}
+      >
+        <FormControl variant="standard" sx={{ minWidth: 120 }}>
+          <InputLabel id="rows-per-page-select-label">Rows per page</InputLabel>
+          <Select
+            labelId="rows-per-page-select-label"
+            id="rows-per-page-select"
+            value={rowsPerPage}
+            // @ts-ignore
+            onChange={handleChangeRowsPerPage}
+            label="Rows per page"
+          >
+            {[5, 10, 25].map((rows) => (
+              <MenuItem key={rows} value={rows}>
+                {rows}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <CustomTablePagination
+          count={data?.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          rowsPerPageOptions={[]}
+          labelRowsPerPage=""
+        />
+      </Box>
     </TableContainer>
   );
 };

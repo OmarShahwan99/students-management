@@ -14,22 +14,27 @@ const TextAreaController: React.FC<TextAreaControllerProps> = ({
   label,
   textFieldProps,
 }) => (
-  <Controller
-    name={name}
-    control={control}
-    render={({ field, formState: { errors } }) => (
-      <TextField
-        {...field}
-        {...textFieldProps}
-        label={label}
-        error={!!errors[name]}
-        helperText={errors[name]?.message?.toString()}
-        color={errors[name] ? "error" : undefined}
-        multiline
-        rows={4} // You can adjust the number of rows as needed
-      />
+  <>
+    {label && (
+      <label style={{ marginBottom: "5px", display: "block" }}>{label}</label>
     )}
-  />
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, formState: { errors } }) => (
+        <TextField
+          {...field}
+          {...textFieldProps}
+          error={!!errors[name]}
+          helperText={errors[name]?.message?.toString()}
+          color={errors[name] ? "error" : undefined}
+          multiline
+          rows={4}
+          size="small"
+        />
+      )}
+    />
+  </>
 );
 
 export default TextAreaController;

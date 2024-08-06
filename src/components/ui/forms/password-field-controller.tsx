@@ -31,35 +31,38 @@ const PasswordFieldController: React.FC<PasswordFieldControllerProps> = ({
   };
 
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field, formState: { errors } }) => (
-        <TextField
-          {...field}
-          {...textFieldProps}
-          type={showPassword ? "text" : "password"}
-          label={label}
-          error={!!errors[name]}
-          helperText={errors[name]?.message?.toString()}
-          color={errors[name] ? "error" : undefined}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      )}
-    />
+    <>
+      <label style={{ marginBottom: "5px", display: "block" }}>{label}</label>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, formState: { errors } }) => (
+          <TextField
+            {...field}
+            {...textFieldProps}
+            type={showPassword ? "text" : "password"}
+            error={!!errors[name]}
+            helperText={errors[name]?.message?.toString()}
+            color={errors[name] ? "error" : undefined}
+            size="small"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        )}
+      />
+    </>
   );
 };
 

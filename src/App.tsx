@@ -7,6 +7,8 @@ import ManagedModal from "./components/ui/modal/managed-modal";
 import { BrowserRouter } from "react-router-dom";
 import { SettingsProvider } from "./contexts/settings.context";
 import { LanguageProvider } from "./contexts/language.context";
+import { ThemeProvider } from "@emotion/react";
+import theme from "./theme";
 
 const queryClient = new QueryClient();
 
@@ -16,11 +18,13 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <LanguageProvider>
           <SettingsProvider>
-            <ModalProvider>
-              <RouterContent />
-              <Toaster />
-              <ManagedModal />
-            </ModalProvider>
+            <ThemeProvider theme={theme}>
+              <ModalProvider>
+                <RouterContent />
+                <Toaster />
+                <ManagedModal />
+              </ModalProvider>
+            </ThemeProvider>
           </SettingsProvider>
         </LanguageProvider>
       </QueryClientProvider>

@@ -70,7 +70,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="firstName"
-                  label="First Name"
+                  label="First Name *"
                   textFieldProps={{
                     style: { width: "100%" },
                   }}
@@ -80,7 +80,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="lastName"
-                  label="Last Name"
+                  label="Last Name *"
                   textFieldProps={{
                     style: { width: "100%" },
                   }}
@@ -90,7 +90,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="birthDate"
-                  label="Date of Birth"
+                  label="Date of Birth *"
                   textFieldProps={{
                     type: "date",
                     style: { width: "100%" },
@@ -101,7 +101,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="grade"
-                  label="Education Level"
+                  label="Education Level *"
                   options={gradesOptions}
                   selectProps={{
                     defaultValue: defaultValues?.grade,
@@ -112,7 +112,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="country"
-                  label="Country"
+                  label="Country *"
                   options={[{ value: "egybt", label: "Egybt" }]}
                 />
               </Grid>
@@ -120,7 +120,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="city"
-                  label="City"
+                  label="City *"
                   options={[{ value: "cairo", label: "Cairo" }]}
                 />
               </Grid>
@@ -128,7 +128,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="phone"
-                  label="Mobile"
+                  label="Mobile *"
                   textFieldProps={{
                     type: "tel",
                     style: { width: "100%" },
@@ -139,7 +139,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="gender"
-                  label="Gender"
+                  label="Gender *"
                   options={gendersOptions}
                   selectProps={{
                     defaultValue: defaultValues?.gender,

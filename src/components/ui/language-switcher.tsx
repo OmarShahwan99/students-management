@@ -7,10 +7,9 @@ const LanguageSwitcher = () => {
     <Select
       labelId="language-select-label"
       id="language-select"
-      label="Language"
       size="small"
       value={cultureCode}
-      sx={{ width: "120px" }}
+      sx={{ width: "120px", backgroundColor: "transparent" }}
       onChange={(event) => changeLanguage(event.target.value as 0 | 1)}
     >
       <MenuItem value={0}>English</MenuItem>

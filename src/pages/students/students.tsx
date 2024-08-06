@@ -25,7 +25,12 @@ const Filteration = ({
 }) => {
   return (
     <Box display="flex" alignItems="center" gap={2} m={1}>
-      <Typography component="span" variant="body2" display="flex">
+      <Typography
+        component="span"
+        variant="body2"
+        display="flex"
+        color="primary"
+      >
         <FilterAltOutlined />
         Filter By:
       </Typography>
@@ -34,7 +39,7 @@ const Filteration = ({
           onChange={(e) => setValue(e.target.value)}
           value={value}
           size="small"
-          placeholder="Search by first name, last name"
+          placeholder="Search by first name, last.."
         />
       </Stack>
     </Box>

@@ -1,5 +1,5 @@
 import { Form } from "../ui/forms/form";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import * as yup from "yup";
 import TextFieldController from "../ui/forms/text-field-controller";
 import PasswordFieldController from "../ui/forms/password-field-controller";
@@ -24,17 +24,27 @@ const SignIn = () => {
       validationSchema={SignInFormSchema}
     >
       {({ control }) => (
-        <Stack flexDirection="column" width="100%" spacing={4}>
-          <TextFieldController
-            control={control}
-            label="Username"
-            name="userName"
-          />
-          <PasswordFieldController
-            control={control}
-            label="Password"
-            name="password"
-          />
+        <Stack width="100%" spacing={4}>
+          <Box>
+            <TextFieldController
+              control={control}
+              label="Username"
+              name="userName"
+              textFieldProps={{
+                style: { width: "100%" },
+              }}
+            />
+          </Box>
+          <Box>
+            <PasswordFieldController
+              control={control}
+              label="Password"
+              name="password"
+              textFieldProps={{
+                style: { width: "100%" },
+              }}
+            />
+          </Box>
           <LoadingButton
             type="submit"
             variant="contained"
