@@ -40,8 +40,8 @@ To set up the project locally, follow these steps:
    ```
 
 or, if you are using Yarn:
-```bash
-yran install
+    ```bash
+    yran install
 
 4. **Start the Development Server**:
    ```bash
@@ -49,8 +49,8 @@ yran install
    ```
 
 or:
-```bash
-yarn start
+    ```bash
+    yarn start
 
 ## Usage
 
