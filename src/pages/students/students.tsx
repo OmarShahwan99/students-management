@@ -24,7 +24,7 @@ const Filteration = ({
   setValue: Dispatch<SetStateAction<string>>;
 }) => {
   return (
-    <Box display="flex" alignItems="center" gap={2} m={1}>
+    <Box display="flex" flexWrap="wrap" alignItems="center" gap={2} m={1}>
       <Typography
         component="span"
         variant="body2"

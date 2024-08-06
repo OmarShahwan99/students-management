@@ -17,6 +17,8 @@ import {
   ListItemText,
   Stack,
   Toolbar,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { FC, PropsWithChildren, useState } from "react";
 import { useModalAction } from "../components/ui/modal/modal.context";
@@ -24,10 +26,12 @@ import LanguageSwitcher from "../components/ui/language-switcher";
 import { useLanguage } from "../contexts/language.context";
 
 const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [drawerOpen, setDrawerOpen] = useState(!isMobile);
 
   const { isRtl } = useLanguage();
-
   const { openModal } = useModalAction();
 
   const toggleDrawer = () => {
@@ -39,9 +43,9 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
       <AppBar
         position="fixed"
         sx={{
-          width: drawerOpen ? "calc(100% - 250px)" : "100%",
-          ml: drawerOpen && !isRtl ? "250px" : 0,
-          mr: drawerOpen && isRtl ? "250px" : 0,
+          width: drawerOpen && !isMobile ? "calc(100% - 250px)" : "100%",
+          ml: drawerOpen && !isRtl && !isMobile ? "250px" : 0,
+          mr: drawerOpen && isRtl && !isMobile ? "250px" : 0,
           backgroundColor: "#fff",
           boxShadow: "none",
           transition: "width 0.3s, margin 0.3s",
@@ -50,14 +54,16 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
       >
         <Toolbar>
           <Stack direction="row" width="100%" justifyContent="space-between">
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              edge="start"
-            >
-              <MenuIcon />
-            </IconButton>
+            {
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                edge="start"
+              >
+                <MenuIcon />
+              </IconButton>
+            }
             <LanguageSwitcher />
           </Stack>
         </Toolbar>
@@ -71,10 +77,13 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
             width: "250px",
             boxSizing: "border-box",
           },
+          display: { xs: isMobile ? "block" : "none", sm: "block" },
         }}
-        variant="persistent"
+        variant={isMobile ? "temporary" : "persistent"}
         anchor={isRtl ? "right" : "left"}
         open={drawerOpen}
+        onClose={() => isMobile && setDrawerOpen(false)}
+        ModalProps={{ keepMounted: true }}
       >
         <Box
           p="20px"
@@ -120,8 +129,8 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
         component="main"
         sx={{
           flex: 1,
-          marginLeft: drawerOpen && !isRtl ? "250px" : "0",
-          marginRight: drawerOpen && isRtl ? "250px" : "0",
+          marginLeft: drawerOpen && !isRtl && !isMobile ? "250px" : "0",
+          marginRight: drawerOpen && isRtl && !isMobile ? "250px" : "0",
           padding: "1rem",
           backgroundColor: "#F3F6F9",
           minHeight: "100vh",
