@@ -12,6 +12,8 @@ import SelectFieldController from "../ui/forms/select-field-controller";
 import * as yup from "yup";
 import TextAreaController from "../ui/forms/textarea-field-controller";
 import { useSettings } from "../../store/settings.context";
+import { StudentRequest } from "../../models/student";
+import useAddStudent from "../../query/student/useAddStudent";
 
 const studentFormSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -29,6 +31,8 @@ const AddUpdateStudent = () => {
   const { closeModal } = useModalAction();
   const { data } = useModalState();
 
+  const add = useAddStudent();
+
   const { grades, genders } = useSettings();
 
   const gradesOptions = grades?.map((grade) => ({
@@ -40,9 +44,13 @@ const AddUpdateStudent = () => {
     label: gender.translations[0].name,
   }));
 
-  const onSubmit = () => {};
+  const onSubmit = (values: StudentRequest) => {
+    add.mutateAsync(values).then(() => {
+      closeModal();
+    });
+  };
   return (
-    <Form
+    <Form<StudentRequest>
       onSubmit={onSubmit}
       validationSchema={studentFormSchema}
       resetValues={data}
