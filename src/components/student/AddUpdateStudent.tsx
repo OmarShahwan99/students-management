@@ -11,6 +11,7 @@ import { useModalAction, useModalState } from "../ui/modal/modal.context";
 import SelectFieldController from "../ui/forms/select-field-controller";
 import * as yup from "yup";
 import TextAreaController from "../ui/forms/textarea-field-controller";
+import { useSettings } from "../../store/settings.context";
 
 const studentFormSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -27,6 +28,17 @@ const studentFormSchema = yup.object().shape({
 const AddUpdateStudent = () => {
   const { closeModal } = useModalAction();
   const { data } = useModalState();
+
+  const { grades, genders } = useSettings();
+
+  const gradesOptions = grades?.map((grade) => ({
+    value: grade.id,
+    label: grade.translations[0].name,
+  }));
+  const gendersOptions = genders?.map((gender) => ({
+    value: gender.id,
+    label: gender.translations[0].name,
+  }));
 
   const onSubmit = () => {};
   return (
@@ -76,7 +88,7 @@ const AddUpdateStudent = () => {
                   control={control}
                   name="grade"
                   label="Education Level"
-                  options={["University"]}
+                  options={gradesOptions}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -84,7 +96,7 @@ const AddUpdateStudent = () => {
                   control={control}
                   name="country"
                   label="Country"
-                  options={["Egybt"]}
+                  options={[{ value: "egybt", label: "Egybt" }]}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -92,7 +104,7 @@ const AddUpdateStudent = () => {
                   control={control}
                   name="city"
                   label="City"
-                  options={["Cairo"]}
+                  options={[{ value: "cairo", label: "Cairo" }]}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -111,7 +123,7 @@ const AddUpdateStudent = () => {
                   control={control}
                   name="gender"
                   label="Gender"
-                  options={["Male", "Female"]}
+                  options={gendersOptions}
                 />
               </Grid>
               <Grid item xs={12} md={12}>

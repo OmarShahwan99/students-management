@@ -18,3 +18,16 @@ export interface StudentModel {
   phone: string;
   remarks: string;
 }
+
+export interface StudentRequest {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  grade: string;
+  gender: string;
+  country: string;
+  city: string;
+  phone: string;
+  remarks: string;
+  id?: string;
+}

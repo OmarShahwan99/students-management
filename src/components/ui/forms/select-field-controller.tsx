@@ -12,7 +12,7 @@ interface SelectControllerProps {
   name: string;
   control: Control<any>;
   label: string;
-  options: string[];
+  options: { value: string; label: string }[];
   selectProps?: SelectProps;
 }
 
@@ -37,8 +37,8 @@ const SelectFieldController: React.FC<SelectControllerProps> = ({
             error={!!errors[name]}
           >
             {options.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
               </MenuItem>
             ))}
           </Select>

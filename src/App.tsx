@@ -5,6 +5,7 @@ import RouterContent from "./routes/router-content";
 import { ModalProvider } from "./components/ui/modal/modal.context";
 import ManagedModal from "./components/ui/modal/managed-modal";
 import { BrowserRouter } from "react-router-dom";
+import { SettingsProvider } from "./store/settings.context";
 
 const queryClient = new QueryClient();
 
@@ -12,11 +13,13 @@ function App() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ModalProvider>
-          <RouterContent />
-          <Toaster />
-          <ManagedModal />
-        </ModalProvider>
+        <SettingsProvider>
+          <ModalProvider>
+            <RouterContent />
+            <Toaster />
+            <ManagedModal />
+          </ModalProvider>
+        </SettingsProvider>
       </QueryClientProvider>
     </BrowserRouter>
   );
