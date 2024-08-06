@@ -15,3 +15,8 @@ export async function DeleteStudent(id: string) {
   const response = await httpClient.delete(`/Student/Remove?Id=${id}`);
   return response;
 }
+
+export async function UpdateStudent(data: StudentRequest) {
+  const response = await httpClient.put("/Student/Edit", data);
+  return response;
+}

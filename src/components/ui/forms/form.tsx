@@ -50,6 +50,8 @@ export const Form = <TFormValues extends FieldValues = Record<string, any>>({
     }
   }, [serverError, methods]);
 
+  console.log("resetValues", resetValues);
+
   useEffect(() => {
     if (resetValues) {
       methods.reset(resetValues);

@@ -31,6 +31,7 @@ const SelectFieldController: React.FC<SelectControllerProps> = ({
       render={({ field, formState: { errors } }) => (
         <>
           <Select
+            sx={{ width: "100%" }}
             {...field}
             {...selectProps}
             label={label}
