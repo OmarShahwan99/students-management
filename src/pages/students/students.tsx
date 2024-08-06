@@ -1,24 +1,63 @@
-import { Add, Delete, Edit } from "@mui/icons-material";
+import { Add, FilterAltOutlined } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Card,
   CardContent,
   CardHeader,
-  IconButton,
+  Divider,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { useModalAction } from "../../components/ui/modal/modal.context";
 import useStudents from "../../query/student/useStudents";
+import StudentsTable from "../../components/student/StudentsTable";
+import { Dispatch, useState } from "react";
+import { SetStateAction } from "jotai";
+
+const Filteration = ({
+  value,
+  setValue,
+}: {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+}) => {
+  return (
+    <Box display="flex" alignItems="center" gap={2} m={1}>
+      <Typography component="span" variant="body2" display="flex">
+        <FilterAltOutlined />
+        Filter By:
+      </Typography>
+      <Stack direction="row" spacing={2}>
+        <TextField
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          size="small"
+          placeholder="Search by first name, last name"
+        />
+      </Stack>
+    </Box>
+  );
+};
 
 const Students = () => {
   const { openModal } = useModalAction();
+
+  const [searchValue, setSearchValue] = useState("");
+
   const { data, isLoading } = useStudents();
+
+  const filteredData = data?.filter(
+    (student) =>
+      student.firstName
+        .toLocaleLowerCase()
+        .startsWith(searchValue.toLocaleLowerCase()) ||
+      student.lastName
+        .toLocaleLowerCase()
+        .startsWith(searchValue.toLocaleLowerCase())
+  );
+
   return (
     <Card variant="outlined">
       <CardHeader
@@ -33,57 +72,10 @@ const Students = () => {
           </Button>
         }
       />
+      <Filteration value={searchValue} setValue={setSearchValue} />
+      <Divider />
       <CardContent>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>First Name</TableCell>
-                <TableCell>LastName</TableCell>
-                <TableCell>Date of Birth</TableCell>
-                <TableCell>Education Level</TableCell>
-                <TableCell>Gender</TableCell>
-                <TableCell>Country</TableCell>
-                <TableCell>City</TableCell>
-                <TableCell>Mobile Number</TableCell>
-                <TableCell>Notes</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            {data?.map((student) => (
-              <TableBody>
-                <TableCell>{student.firstName}</TableCell>
-                <TableCell>{student.lastName}</TableCell>
-                <TableCell>{student.birthDate}</TableCell>
-                <TableCell>{student.grade.translations[0].name}</TableCell>
-                <TableCell>{student.gender.translations[0].name}</TableCell>
-                <TableCell>{student.country}</TableCell>
-                <TableCell>{student.city}</TableCell>
-                <TableCell>{student.phone}</TableCell>
-                <TableCell>{student.remarks}</TableCell>
-                <TableCell>
-                  <Stack flexDirection="row">
-                    <IconButton
-                      size="small"
-                      color="error"
-                      onClick={() =>
-                        openModal("DELETE_CONFIRM", student.id, "xs")
-                      }
-                    >
-                      <Delete />
-                    </IconButton>
-                    <IconButton
-                      onClick={() => openModal("ADD_UPDATE_STUDENT", student)}
-                      size="small"
-                    >
-                      <Edit />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-              </TableBody>
-            ))}
-          </Table>
-        </TableContainer>
+        <StudentsTable data={filteredData!} isLoading={isLoading} />
       </CardContent>
     </Card>
   );

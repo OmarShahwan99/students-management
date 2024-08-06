@@ -1,10 +1,14 @@
-import { Box, Container, Grid, Select, MenuItem, Stack } from "@mui/material";
+import { Box, Container, Grid, Stack } from "@mui/material";
 import { FC, PropsWithChildren } from "react";
 import AuthImgLayout from "../assets/auth-img-layout.svg";
+import LanguageSwitcher from "../components/ui/language-switcher";
 
 const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Grid container sx={{ minHeight: "100vh" }}>
+      <Box p={4} position="absolute">
+        <LanguageSwitcher />
+      </Box>
       <Grid
         item
         md={5.5}
@@ -13,18 +17,6 @@ const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
         <Container
           sx={{ height: "100%", display: "flex", flexDirection: "column" }}
         >
-          <Box p={4}>
-            <Select
-              labelId="language-select-label"
-              id="language-select"
-              label="Language"
-              size="small"
-              value="en"
-              sx={{ width: "120px" }}
-            >
-              <MenuItem value="en">English</MenuItem>
-            </Select>
-          </Box>
           <Stack
             bgcolor="#fff"
             alignItems="center"
@@ -42,7 +34,8 @@ const AuthLayout: FC<PropsWithChildren> = ({ children }) => {
         xs={12}
         md={6.5}
         sx={{
-          backgroundImage: "url('/src/assets/auth-bg.svg')",
+          backgroundImage: { md: "url('/src/assets/auth-bg.svg')" },
+          backgroundColor: { xs: "#F3F6F9", md: "transparent" },
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}

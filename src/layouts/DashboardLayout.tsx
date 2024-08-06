@@ -20,9 +20,13 @@ import {
 } from "@mui/material";
 import { FC, PropsWithChildren, useState } from "react";
 import { useModalAction } from "../components/ui/modal/modal.context";
+import LanguageSwitcher from "../components/ui/language-switcher";
+import { useLanguage } from "../contexts/language.context";
 
 const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
   const [drawerOpen, setDrawerOpen] = useState(true);
+
+  const { isRtl } = useLanguage();
 
   const { openModal } = useModalAction();
 
@@ -36,7 +40,8 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
         position="fixed"
         sx={{
           width: drawerOpen ? "calc(100% - 250px)" : "100%",
-          ml: drawerOpen ? "250px" : 0,
+          ml: drawerOpen && !isRtl ? "250px" : 0,
+          mr: drawerOpen && isRtl ? "250px" : 0,
           backgroundColor: "#fff",
           boxShadow: "none",
           transition: "width 0.3s, margin 0.3s",
@@ -44,7 +49,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
         }}
       >
         <Toolbar>
-          <Stack justifyContent="space-between">
+          <Stack direction="row" width="100%" justifyContent="space-between">
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -53,6 +58,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
             >
               <MenuIcon />
             </IconButton>
+            <LanguageSwitcher />
           </Stack>
         </Toolbar>
         <Divider />
@@ -67,7 +73,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
           },
         }}
         variant="persistent"
-        anchor="left"
+        anchor={isRtl ? "right" : "left"}
         open={drawerOpen}
       >
         <Box
@@ -114,7 +120,8 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
         component="main"
         sx={{
           flex: 1,
-          marginLeft: drawerOpen ? "250px" : "0",
+          marginLeft: drawerOpen && !isRtl ? "250px" : "0",
+          marginRight: drawerOpen && isRtl ? "250px" : "0",
           padding: "1rem",
           backgroundColor: "#F3F6F9",
           minHeight: "100vh",

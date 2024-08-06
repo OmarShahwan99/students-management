@@ -11,11 +11,12 @@ import { useModalAction, useModalState } from "../ui/modal/modal.context";
 import SelectFieldController from "../ui/forms/select-field-controller";
 import * as yup from "yup";
 import TextAreaController from "../ui/forms/textarea-field-controller";
-import { useSettings } from "../../store/settings.context";
 import { StudentModel, StudentRequest } from "../../models/student";
 import useAddStudent from "../../query/student/useAddStudent";
 import { LoadingButton } from "@mui/lab";
 import useUpdateStudent from "../../query/student/useUpdateStudent";
+import { useSettings } from "../../contexts/settings.context";
+import { useLanguage } from "../../contexts/language.context";
 
 const studentFormSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -40,15 +41,17 @@ const StudentForm = ({
 }) => {
   const { closeModal } = useModalAction();
 
+  const { getLocaleString } = useLanguage();
+
   const { grades, genders } = useSettings();
 
   const gradesOptions = grades?.map((grade) => ({
     value: grade.id,
-    label: grade.translations[0].name,
+    label: getLocaleString(grade.translations),
   }));
   const gendersOptions = genders?.map((gender) => ({
     value: gender.id,
-    label: gender.translations[0].name,
+    label: getLocaleString(gender.translations),
   }));
   return (
     <Form<StudentRequest>
