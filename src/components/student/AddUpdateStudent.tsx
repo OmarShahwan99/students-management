@@ -34,7 +34,7 @@ const StudentForm = ({
   onSubmit,
   isPending,
 }: {
-  defaultValues: StudentRequest;
+  defaultValues: StudentRequest | undefined;
   onSubmit: (values: StudentRequest) => void;
   isPending: boolean;
 }) => {
@@ -101,7 +101,7 @@ const StudentForm = ({
                   label="Education Level"
                   options={gradesOptions}
                   selectProps={{
-                    defaultValue: defaultValues.grade,
+                    defaultValue: defaultValues?.grade,
                   }}
                 />
               </Grid>
@@ -139,7 +139,7 @@ const StudentForm = ({
                   label="Gender"
                   options={gendersOptions}
                   selectProps={{
-                    defaultValue: defaultValues.gender,
+                    defaultValue: defaultValues?.gender,
                   }}
                 />
               </Grid>
@@ -196,11 +196,13 @@ const AddUpdateStudent = () => {
     }
   };
 
-  const initialData: StudentRequest = {
-    ...student,
-    gender: student?.gender.id,
-    grade: student?.grade.id,
-  };
+  const initialData: StudentRequest | undefined = student
+    ? {
+        ...student,
+        gender: student?.gender.id,
+        grade: student?.grade.id,
+      }
+    : undefined;
 
   return (
     <StudentForm
