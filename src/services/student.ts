@@ -10,3 +10,8 @@ export async function PostStudent(data: StudentRequest) {
   const response = await httpClient.post("/Student/Add", data);
   return response;
 }
+
+export async function DeleteStudent(id: string) {
+  const response = await httpClient.delete(`/Student/Remove?Id=${id}`);
+  return response;
+}

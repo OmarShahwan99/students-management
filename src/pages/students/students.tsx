@@ -66,7 +66,9 @@ const Students = () => {
                     <IconButton
                       size="small"
                       color="error"
-                      onClick={() => openModal("DELETE_CONFIRM", {}, "xs")}
+                      onClick={() =>
+                        openModal("DELETE_CONFIRM", student.id, "xs")
+                      }
                     >
                       <Delete />
                     </IconButton>

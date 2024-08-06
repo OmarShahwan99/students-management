@@ -1,9 +1,22 @@
 import { Warning } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { useModalAction } from "../ui/modal/modal.context";
+import { useModalAction, useModalState } from "../ui/modal/modal.context";
+import useDeleteStudent from "../../query/student/useDeleteStudent";
+import { LoadingButton } from "@mui/lab";
 
 const DeleteConfirm = () => {
   const { closeModal } = useModalAction();
+
+  const { data: studentId } = useModalState();
+
+  const { mutateAsync, isPending } = useDeleteStudent();
+
+  const handleDelete = () => {
+    mutateAsync(studentId).then(() => {
+      closeModal();
+    });
+  };
+
   return (
     <Box>
       <Box
@@ -27,9 +40,15 @@ const DeleteConfirm = () => {
           This action connet be undone.
         </Typography>
         <Stack direction="row" spacing={2} mt={3}>
-          <Button fullWidth variant="contained" color="error">
+          <LoadingButton
+            onClick={handleDelete}
+            loading={isPending}
+            fullWidth
+            variant="contained"
+            color="error"
+          >
             Delete
-          </Button>
+          </LoadingButton>
           <Button
             fullWidth
             color="error"

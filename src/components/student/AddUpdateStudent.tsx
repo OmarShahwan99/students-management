@@ -14,6 +14,7 @@ import TextAreaController from "../ui/forms/textarea-field-controller";
 import { useSettings } from "../../store/settings.context";
 import { StudentRequest } from "../../models/student";
 import useAddStudent from "../../query/student/useAddStudent";
+import { LoadingButton } from "@mui/lab";
 
 const studentFormSchema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -147,9 +148,14 @@ const AddUpdateStudent = () => {
             </Grid>
           </DialogContent>
           <DialogActions>
-            <Button type="submit" variant="contained" fullWidth>
+            <LoadingButton
+              loading={add.isPending}
+              type="submit"
+              variant="contained"
+              fullWidth
+            >
               Add
-            </Button>
+            </LoadingButton>
             <Button onClick={closeModal} variant="outlined" fullWidth>
               Cancel
             </Button>
