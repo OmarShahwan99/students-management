@@ -29,15 +29,16 @@ const studentFormSchema = yup.object().shape({
   remarks: yup.string().optional(),
 });
 
-const AddUpdateStudent = () => {
+const StudentForm = ({
+  defaultValues,
+  onSubmit,
+  isPending,
+}: {
+  defaultValues: StudentRequest;
+  onSubmit: (values: StudentRequest) => void;
+  isPending: boolean;
+}) => {
   const { closeModal } = useModalAction();
-  const { data } = useModalState();
-
-  const student: StudentModel = data;
-
-  const add = useAddStudent();
-
-  const update = useUpdateStudent();
 
   const { grades, genders } = useSettings();
 
@@ -49,35 +50,16 @@ const AddUpdateStudent = () => {
     value: gender.id,
     label: gender.translations[0].name,
   }));
-
-  const onSubmit = (values: StudentRequest) => {
-    if (student) {
-      update.mutateAsync(values).then(() => {
-        closeModal();
-      });
-    } else {
-      add.mutateAsync(values).then(() => {
-        closeModal();
-      });
-    }
-  };
-
-  const initialData: StudentRequest = {
-    ...student,
-    gender: student?.gender.id,
-    grade: student?.grade.id,
-  };
-
   return (
     <Form<StudentRequest>
       onSubmit={onSubmit}
       validationSchema={studentFormSchema}
-      resetValues={initialData}
+      resetValues={defaultValues}
     >
       {({ control }) => (
         <>
           <DialogTitle>
-            {data ? "Modify Student Data" : "Add Student"}
+            {defaultValues ? "Modify Student Data" : "Add Student"}
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={3}>
@@ -119,7 +101,7 @@ const AddUpdateStudent = () => {
                   label="Education Level"
                   options={gradesOptions}
                   selectProps={{
-                    defaultValue: student.grade.id,
+                    defaultValue: defaultValues.grade,
                   }}
                 />
               </Grid>
@@ -157,7 +139,7 @@ const AddUpdateStudent = () => {
                   label="Gender"
                   options={gendersOptions}
                   selectProps={{
-                    defaultValue: student.gender.id,
+                    defaultValue: defaultValues.gender,
                   }}
                 />
               </Grid>
@@ -175,12 +157,12 @@ const AddUpdateStudent = () => {
           </DialogContent>
           <DialogActions>
             <LoadingButton
-              loading={add.isPending || update.isPending}
+              loading={isPending}
               type="submit"
               variant="contained"
               fullWidth
             >
-              {student ? "Modify" : "Add"}
+              {defaultValues ? "Modify" : "Add"}
             </LoadingButton>
             <Button onClick={closeModal} variant="outlined" fullWidth>
               Cancel
@@ -189,6 +171,43 @@ const AddUpdateStudent = () => {
         </>
       )}
     </Form>
+  );
+};
+
+const AddUpdateStudent = () => {
+  const { closeModal } = useModalAction();
+  const { data } = useModalState();
+
+  const student: StudentModel = data;
+
+  const add = useAddStudent();
+
+  const update = useUpdateStudent();
+
+  const onSubmit = (values: StudentRequest) => {
+    if (student) {
+      update.mutateAsync(values).then(() => {
+        closeModal();
+      });
+    } else {
+      add.mutateAsync(values).then(() => {
+        closeModal();
+      });
+    }
+  };
+
+  const initialData: StudentRequest = {
+    ...student,
+    gender: student?.gender.id,
+    grade: student?.grade.id,
+  };
+
+  return (
+    <StudentForm
+      defaultValues={initialData}
+      isPending={add.isPending || update.isPending}
+      onSubmit={onSubmit}
+    />
   );
 };
 
