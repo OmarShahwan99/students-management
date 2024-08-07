@@ -18,7 +18,6 @@ export default function useSignin() {
   return useMutation({
     mutationFn: SignIn,
     onSuccess: (res) => {
-      console.log("res", res);
       if (res.status === 200) {
         setUser({ user: res.data.userName });
         setAuth(true);
