@@ -1,7 +1,9 @@
 import { createTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material/styles";
+import i18n from "./i18n";
 
 const theme = createTheme({
+  direction: i18n.dir(),
   palette: {
     primary: {
       main: "#1F7BF4",

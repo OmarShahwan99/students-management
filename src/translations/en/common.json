@@ -1,1 +1,10 @@
-{}
+{
+  "add": "Add",
+  "modify": "Modify",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "sureAction": "Are you sure?",
+  "actionConnetBeUndone": "This action cannot be undone",
+  "filterBy": "Filter By",
+  "actions": "Actions"
+}

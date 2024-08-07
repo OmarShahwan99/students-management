@@ -17,16 +17,17 @@ import { LoadingButton } from "@mui/lab";
 import useUpdateStudent from "../../query/student/useUpdateStudent";
 import { useSettings } from "../../contexts/settings.context";
 import { useLanguage } from "../../contexts/language.context";
+import { useTranslation } from "react-i18next";
 
 const studentFormSchema = yup.object().shape({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
-  birthDate: yup.string().required("Date of Birth is required"),
-  grade: yup.string().required("Grade is required"),
-  gender: yup.string().required("Gender is required"),
-  country: yup.string().required("Country is required"),
-  city: yup.string().required("City is required"),
-  phone: yup.string().required("Phone is required"),
+  firstName: yup.string().required("student:firstNameRequired"),
+  lastName: yup.string().required("student:lastNameRequired"),
+  birthDate: yup.string().required("student:birthDateRequired"),
+  grade: yup.string().required("student:gradeRequired"),
+  gender: yup.string().required("student:genderRequired"),
+  country: yup.string().required("student:countryRequired"),
+  city: yup.string().required("student:cityRequired"),
+  phone: yup.string().required("student:phoneRequired"),
   remarks: yup.string().optional(),
 });
 
@@ -40,6 +41,8 @@ const StudentForm = ({
   isPending: boolean;
 }) => {
   const { closeModal } = useModalAction();
+
+  const { t } = useTranslation();
 
   const { getLocaleString } = useLanguage();
 
@@ -62,7 +65,7 @@ const StudentForm = ({
       {({ control }) => (
         <>
           <DialogTitle>
-            {defaultValues ? "Modify Student Data" : "Add Student"}
+            {defaultValues ? t("student:modify") : t("student:add")}
           </DialogTitle>
           <DialogContent>
             <Grid container spacing={3}>
@@ -70,7 +73,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="firstName"
-                  label="First Name *"
+                  label={t("student:firstName")}
                   textFieldProps={{
                     style: { width: "100%" },
                   }}
@@ -80,7 +83,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="lastName"
-                  label="Last Name *"
+                  label={t("student:lastName")}
                   textFieldProps={{
                     style: { width: "100%" },
                   }}
@@ -90,7 +93,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="birthDate"
-                  label="Date of Birth *"
+                  label={t("student:dateOfBirth")}
                   textFieldProps={{
                     type: "date",
                     style: { width: "100%" },
@@ -101,7 +104,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="grade"
-                  label="Education Level *"
+                  label={t("student:educationLevel")}
                   options={gradesOptions}
                   selectProps={{
                     defaultValue: defaultValues?.grade,
@@ -112,7 +115,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="country"
-                  label="Country *"
+                  label={t("student:country")}
                   options={[{ value: "egybt", label: "Egybt" }]}
                 />
               </Grid>
@@ -120,7 +123,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="city"
-                  label="City *"
+                  label={t("student:city")}
                   options={[{ value: "cairo", label: "Cairo" }]}
                 />
               </Grid>
@@ -128,7 +131,7 @@ const StudentForm = ({
                 <TextFieldController
                   control={control}
                   name="phone"
-                  label="Mobile *"
+                  label={t("student:phone")}
                   textFieldProps={{
                     type: "tel",
                     style: { width: "100%" },
@@ -139,7 +142,7 @@ const StudentForm = ({
                 <SelectFieldController
                   control={control}
                   name="gender"
-                  label="Gender *"
+                  label={t("student:gender")}
                   options={gendersOptions}
                   selectProps={{
                     defaultValue: defaultValues?.gender,
@@ -150,7 +153,7 @@ const StudentForm = ({
                 <TextAreaController
                   control={control}
                   name="remarks"
-                  label="Note"
+                  label={t("student:note")}
                   textFieldProps={{
                     style: { width: "100%" },
                   }}
@@ -165,10 +168,10 @@ const StudentForm = ({
               variant="contained"
               fullWidth
             >
-              {defaultValues ? "Modify" : "Add"}
+              {defaultValues ? t("common:modify") : t("common:add")}
             </LoadingButton>
             <Button onClick={closeModal} variant="outlined" fullWidth>
-              Cancel
+              {t("common:cancel")}
             </Button>
           </DialogActions>
         </>

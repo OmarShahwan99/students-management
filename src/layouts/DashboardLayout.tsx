@@ -24,12 +24,15 @@ import { FC, PropsWithChildren, useState } from "react";
 import { useModalAction } from "../components/ui/modal/modal.context";
 import LanguageSwitcher from "../components/ui/language-switcher";
 import { useLanguage } from "../contexts/language.context";
+import { useTranslation } from "react-i18next";
 
 const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [drawerOpen, setDrawerOpen] = useState(!isMobile);
+
+  const { t } = useTranslation();
 
   const { isRtl } = useLanguage();
   const { openModal } = useModalAction();
@@ -110,7 +113,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
               <ListItemIcon>
                 <School />
               </ListItemIcon>
-              <ListItemText primary="students" />
+              <ListItemText primary={t("student:students")} />
             </ListItemButton>
           </ListItem>
           <ListItem sx={{ padding: "0" }}>
@@ -120,7 +123,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
               <ListItemIcon>
                 <Logout />
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText primary={t("auth:signOut")} />
             </ListItemButton>
           </ListItem>
         </List>

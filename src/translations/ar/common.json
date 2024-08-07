@@ -1,7 +1,10 @@
 {
   "add": "إضافة",
-  "update": "تعديل",
+  "modify": "تعديل",
   "cancel": "إلغاء",
   "delete": "حذف",
-  "sureAction": "هل أنت متأكد؟"
+  "sureAction": "هل أنت متأكد؟",
+  "actionConnetBeUndone": "لا يمكن التراجع عن هذه العملية لاحقاً",
+  "filterBy": "فلترة",
+  "actions": "اكشن"
 }

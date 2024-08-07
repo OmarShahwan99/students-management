@@ -21,6 +21,7 @@ import { StudentModel } from "../../models/student";
 import { useModalAction } from "../ui/modal/modal.context";
 import TableSkeleton from "../ui/TableSkeleton";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const CustomTablePagination = styled(TablePagination)(({ theme }) => ({
   "& .MuiTablePagination-toolbar": {
@@ -47,6 +48,8 @@ const StudentsTable = ({
   const { getLocaleString } = useLanguage();
   const { openModal } = useModalAction();
 
+  const { t } = useTranslation();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -71,16 +74,16 @@ const StudentsTable = ({
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>First Name</TableCell>
-            <TableCell>LastName</TableCell>
-            <TableCell>Date of Birth</TableCell>
-            <TableCell>Education Level</TableCell>
-            <TableCell>Gender</TableCell>
-            <TableCell>Country</TableCell>
-            <TableCell>City</TableCell>
-            <TableCell>Mobile Number</TableCell>
-            <TableCell>Notes</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell>{t("student:firstName")}</TableCell>
+            <TableCell>{t("student:lastName")}</TableCell>
+            <TableCell>{t("student:dateOfBirth")}</TableCell>
+            <TableCell>{t("student:educationLevel")}</TableCell>
+            <TableCell>{t("student:gender")}</TableCell>
+            <TableCell>{t("student:country")}</TableCell>
+            <TableCell>{t("student:city")}</TableCell>
+            <TableCell>{t("student:phone")}</TableCell>
+            <TableCell>{t("student:note")}</TableCell>
+            <TableCell>{t("common:actions")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

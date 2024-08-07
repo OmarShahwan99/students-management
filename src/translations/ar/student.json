@@ -7,5 +7,18 @@
   "country": "البلد",
   "educationLevel": "مستوى التعليم",
   "dateOfBirth": "تاريخ الميلاد",
-  "data": "بيانات الطلاب"
+  "data": "بيانات الطلاب",
+  "gender": "الجنس",
+  "students": "الطلاب",
+  "deleteConfirm": "هل أنت متأكد من حذف بيانات الطالب؟",
+  "firstNameRequired": "الاسم الأول مطلوب",
+  "lastNameRequired": "الاسم الأخير مطلوب",
+  "birthDateRequired": "تاريخ الميلاد مطلوب",
+  "gradeRequired": "المستوى التعليمي مطلوب",
+  "genderRequired": "الجنس مطلوب",
+  "countryRequired": "البلد ملطوب",
+  "cityRequired": "المدينة مطلوبة",
+  "phoneRequired": "رقم الموبايل مطلوب",
+  "modify": "تعديل بيانات الطالب",
+  "note": "ملاحظة"
 }

@@ -6,9 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 import { authorizationAtom } from "../../store/autorization-atom";
 import { ROUTES } from "../../utils/routes";
+import { useTranslation } from "react-i18next";
 
 const SignoutConfirm = () => {
   const { closeModal } = useModalAction();
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -35,10 +38,10 @@ const SignoutConfirm = () => {
       </Box>
       <Box p={4} mt={2} textAlign="center">
         <Typography color="#1F7BF4" variant="h4">
-          Sign out
+          {t("auth:signOut")}
         </Typography>
         <Typography variant="body2" color="#131212CC" mt={1}>
-          Are you sure you would like to sign out of your account?
+          {t("auth:signOutConfirm")}
         </Typography>
         <Stack direction="row" spacing={2} mt={3}>
           <Button
@@ -47,7 +50,7 @@ const SignoutConfirm = () => {
             variant="contained"
             color="primary"
           >
-            Sign out
+            {t("auth:signOut")}
           </Button>
           <Button
             fullWidth
@@ -55,7 +58,7 @@ const SignoutConfirm = () => {
             variant="outlined"
             onClick={closeModal}
           >
-            Cancel
+            {t("common:cancel")}
           </Button>
         </Stack>
       </Box>

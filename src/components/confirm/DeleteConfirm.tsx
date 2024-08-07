@@ -3,9 +3,12 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { useModalAction, useModalState } from "../ui/modal/modal.context";
 import useDeleteStudent from "../../query/student/useDeleteStudent";
 import { LoadingButton } from "@mui/lab";
+import { useTranslation } from "react-i18next";
 
 const DeleteConfirm = () => {
   const { closeModal } = useModalAction();
+
+  const { t } = useTranslation();
 
   const { data: studentId } = useModalState();
 
@@ -31,13 +34,13 @@ const DeleteConfirm = () => {
       </Box>
       <Box p={4} mt={2} textAlign="center">
         <Typography color="#F34235" variant="h4">
-          Are you sure ?
+          {t("common:sureAction")}
         </Typography>
         <Typography variant="body2" color="#131212CC" mt={1}>
-          Are you sure you want to delete this student's information?
+          {t("student:deleteConfirm")}
         </Typography>
         <Typography variant="body2" color="#F34235">
-          This action connet be undone.
+          {t("common:actionConnetBeUndone")}
         </Typography>
         <Stack direction="row" spacing={2} mt={3}>
           <LoadingButton
@@ -47,7 +50,7 @@ const DeleteConfirm = () => {
             variant="contained"
             color="error"
           >
-            Delete
+            {t("common:delete")}
           </LoadingButton>
           <Button
             fullWidth
@@ -55,7 +58,7 @@ const DeleteConfirm = () => {
             variant="outlined"
             onClick={closeModal}
           >
-            Cancel
+            {t("common:cancel")}
           </Button>
         </Stack>
       </Box>

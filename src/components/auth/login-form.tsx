@@ -6,14 +6,17 @@ import PasswordFieldController from "../ui/forms/password-field-controller";
 import { LoadingButton } from "@mui/lab";
 import { SignInRequest } from "../../models/user";
 import useSignin from "../../query/user/useSignin";
+import { useTranslation } from "react-i18next";
 
 const SignInFormSchema = yup.object().shape({
-  userName: yup.string().required("Username is required"),
-  password: yup.string().required("Password is required"),
+  userName: yup.string().required("auth:usernameRequired"),
+  password: yup.string().required("auth:passwordRequired"),
 });
 
 const SignIn = () => {
   const { mutateAsync, isPending } = useSignin();
+
+  const { t } = useTranslation();
 
   const onSubmit = (values: SignInRequest) => {
     mutateAsync(values);
@@ -28,7 +31,7 @@ const SignIn = () => {
           <Box>
             <TextFieldController
               control={control}
-              label="Username"
+              label={t("auth:username")}
               name="userName"
               textFieldProps={{
                 style: { width: "100%" },
@@ -38,7 +41,7 @@ const SignIn = () => {
           <Box>
             <PasswordFieldController
               control={control}
-              label="Password"
+              label={t("auth:password")}
               name="password"
               textFieldProps={{
                 style: { width: "100%" },
@@ -51,7 +54,7 @@ const SignIn = () => {
             loadingPosition="start"
             loading={isPending}
           >
-            Sign In
+            {t("auth:signIn")}
           </LoadingButton>
         </Stack>
       )}
