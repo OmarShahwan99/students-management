@@ -6,6 +6,7 @@ import { ROUTES } from "../../utils/routes";
 
 export default function useGrades() {
   const location = useLocation();
+  console.log(location.pathname);
   return useQuery({
     queryKey: [queryKeys.GRADES],
     queryFn: FetchGrades,
